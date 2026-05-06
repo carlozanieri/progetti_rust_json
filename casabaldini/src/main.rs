@@ -22,7 +22,7 @@ pub enum Route {
     #[route("/casabaldini/:dir")]
     Casabaldini{dir: String},
      #[route("/dovemangiare")]
-    Dovemangiare { },
+    //Dovemangiare { },
     #[route("/prenotazioni")]
     Prenotazioni { },
     #[route("/linkutili")]

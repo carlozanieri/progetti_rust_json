@@ -69,7 +69,7 @@ pub struct Foods {
 }
 
 #[server]
-pub async fn get_menu_db() -> Result<Vec<Menus>, ServerFnError> {
+pub async fn get_menu() -> Result<Vec<Menus>, ServerFnError> {
     // Trasformiamo l'errore di connessione e di query in stringhe leggibili da ServerFnError
     let pool = PgPool::connect(crate::config::DB_URL)
         .await
@@ -84,7 +84,7 @@ pub async fn get_menu_db() -> Result<Vec<Menus>, ServerFnError> {
 }
 
 #[server]
-pub async fn get_submenu_db() -> Result<Vec<Submenus>, ServerFnError> {
+pub async fn get_submenu() -> Result<Vec<Submenus>, ServerFnError> {
     // Trasformiamo l'errore di connessione e di query in stringhe leggibili da ServerFnError
     let pools = PgPool::connect(crate::config::DB_URL)
         .await
@@ -99,7 +99,7 @@ pub async fn get_submenu_db() -> Result<Vec<Submenus>, ServerFnError> {
 }
 
 #[server]
-pub async fn get_sliders_db(dir: String) -> Result<Vec<Slider>, ServerFnError> {
+pub async fn get_sliders(dir: String) -> Result<Vec<Slider>, ServerFnError> {
     // Trasformiamo l'errore di connessione e di query in stringhe leggibili da ServerFnError
     let pool = PgPool::connect(crate::config::DB_URL)
         .await
@@ -153,7 +153,7 @@ pub async fn get_link_db() -> Result<Vec<Links>, ServerFnError> {
 }
 
 #[server]
-pub async fn get_food_db() -> Result<Vec<Foods>, ServerFnError> {
+pub async fn get_foods() -> Result<Vec<Foods>, ServerFnError> {
     // Trasformiamo l'errore di connessione e di query in stringhe leggibili da ServerFnError
     let pool = PgPool::connect(crate::config::DB_URL)
         .await

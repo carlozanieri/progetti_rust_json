@@ -37,6 +37,7 @@ axum::serve(listener, app).await.unwrap();
 // Questa è la funzione che mancava o che il compilatore non trovava:
 async fn get_sliders(State(pool): State<PgPool>) -> Result<Json<Vec<Slider>>, (axum::http::StatusCode, String)> {
 let res = sqlx::query_as::<_, Slider>("SELECT id, titolo, img, testo, caption FROM sliders")
+//let res = reqwest::get(API_SLIDER)
 .fetch_all(&pool)
 .await
 .map_err(|e| (axum::http::StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;

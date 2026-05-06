@@ -1,5 +1,5 @@
 use crate::prelude::*;
-pub use crate::models::get_sliders_db;
+pub use crate::models::get_sliders;
 use crate::components::linkutili::Linkutili;
 use crate::components::elencosliders::ElencoSliders;
 #[component]
@@ -8,13 +8,13 @@ pub fn Casabaldini(dir: String) -> Element {
     let dir = use_signal(|| dir.to_string());
     //let d_resource = dir.clone();
     //let d = d_resource.clone();
-    let sliders = use_resource(move || get_sliders_db(dir.cloned()));
+    let sliders = use_resource(move || get_sliders(dir.cloned()));
     rsx! {
-            
-            div { class:"slider-pro", 
-            
-        hr {}
-            ElencoSliders {dir}
+
+        div { class: "slider-pro",
+
+            hr {}
+            ElencoSliders { dir }
             Linkutili {}
         }
     }

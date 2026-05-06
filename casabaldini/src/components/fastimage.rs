@@ -1,9 +1,8 @@
 use dioxus::prelude::*;
-use crate::models::{Menus, Submenus};
+use crate::models::{Menus};
 use dioxus::prelude::*;
 use crate::components::nav_item::NavItem;
-use crate::models::get_menu_db;
-use crate::models::get_submenu_db;
+use crate::models::get_menu;
 use crate::models::get_single_image_b64;
 use crate::Route;
 use dioxus::{fullstack::reqwest::Url, prelude::*};

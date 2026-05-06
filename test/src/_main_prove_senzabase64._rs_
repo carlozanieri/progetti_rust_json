@@ -172,7 +172,7 @@ fn Echo() -> Element {
 #[component]
 fn Casabaldini() -> Element {
     //let document = window().unwrap().document().unwrap();
-    let sliders = use_resource(move || get_sliders_db());
+    let sliders = use_resource(move || get_sliders());
     
    rsx! {
            
@@ -206,7 +206,7 @@ async fn echo_server(input: String) -> Result<String, ServerFnError> {
 
 
 #[server]
-pub async fn get_sliders_db() -> Result<Vec<Slider>, ServerFnError> {
+pub async fn get_sliders() -> Result<Vec<Slider>, ServerFnError> {
     // Import necessari solo lato server
     #[cfg(not(target_arch = "wasm32"))]
     {
@@ -246,7 +246,7 @@ pub async fn get_sliders_db() -> Result<Vec<Slider>, ServerFnError> {
 }
 #[component]
 fn ElencoSliders() -> Element {
-    let sliders_res = use_resource(move || get_sliders_db());
+    let sliders_res = use_resource(move || get_sliders());
 
     use_effect(move || {
     spawn(async move {

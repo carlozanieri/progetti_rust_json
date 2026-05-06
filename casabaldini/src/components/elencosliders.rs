@@ -1,11 +1,11 @@
 use crate::prelude::*;
 use dioxus::prelude::*;
-use crate::models::{Menus, Submenus};
+
 use crate::components::fastimage::FastImage;
 //use dioxus::prelude::*;
 use crate::components::nav_item::NavItem;
-use crate::models::get_menu_db;
-use crate::models::get_submenu_db;
+use crate::models::get_menu;
+
 use crate::models::get_single_image_b64;
 use crate::Route;
 use dioxus::{fullstack::reqwest::Url, prelude::*};
@@ -13,14 +13,14 @@ use serde::{Serialize, Deserialize};
 
 use dioxus::prelude::asset;
 use crate::document::eval;
-use crate::models::get_sliders_db;
+use crate::models::get_sliders;
 
 #[component]
 pub fn ElencoSliders(dir: String) -> Element {
     let d_resource = dir.clone();
     let d = d_resource.clone();
     let dir = use_signal(|| dir.to_string());
-    let sliders_res = use_resource(move || get_sliders_db(dir.cloned()));
+    let sliders_res = use_resource(move || get_sliders(dir.cloned()));
 
     let inizializza_slider = move |_| {
         spawn(async move {
@@ -64,7 +64,7 @@ pub fn ElencoSliders(dir: String) -> Element {
                                         "data-show-transition": "left",
                                         "data-hide-transition": "left", // Chiusura ciclo for
                                         "{s.titolo}" // Chiusura example1
-                                    } // Chiusura contenitore 960px // Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px
+                                    } // Chiusura contenitore 960px // Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px
 
                                     p {
                                         class: "sp-layer sp-white sp-padding hide-medium-screen",
@@ -83,11 +83,11 @@ pub fn ElencoSliders(dir: String) -> Element {
                                         "data-show-transition": "left",
                                         "{s.testo}"
                                     }
-                                } // Chiusura sp-slide // Chiusura sp-slide // Chiusura sp-slide  Chiusura sp-slide
-                            } // Chiusura ciclo for // Chiusura ciclo for // Chiusura ciclo for  Chiusura ciclo for
-                        } // Chiusura sp-slides // Chiusura sp-slides // Chiusura sp-slides  Chiusura sp-slides
-                    } // Chiusura example1 // Chiusura example1 // Chiusura example1  Chiusura example1
-                } // Chiusura contenitore 960px // Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px
+                                } // Chiusura sp-slide // Chiusura sp-slide // Chiusura sp-slide  Chiusura sp-slide // Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide // Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide // Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide // Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide  Chiusura sp-slide
+                            } // Chiusura ciclo for // Chiusura ciclo for // Chiusura ciclo for  Chiusura ciclo for // Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for // Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for // Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for // Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for  Chiusura ciclo for
+                        } // Chiusura sp-slides // Chiusura sp-slides // Chiusura sp-slides  Chiusura sp-slides // Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides // Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides // Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides // Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides  Chiusura sp-slides
+                    } // Chiusura example1 // Chiusura example1 // Chiusura example1  Chiusura example1 // Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1 // Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1 // Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1 // Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1  Chiusura example1
+                } // Chiusura contenitore 960px // Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px // Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px  Chiusura contenitore 960px
             },
             _ => rsx! {
                 img { src: CLESSIDRA, id: "header" }

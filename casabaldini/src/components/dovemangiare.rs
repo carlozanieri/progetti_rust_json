@@ -1,11 +1,12 @@
 use crate::prelude::*;
 use crate::components::fastimage::FastImage;
 use dioxus::prelude::asset;
-use crate::models::get_food_db;
+use crate::models::get_foods;
 pub const BACK_IMG: Asset = asset!("/assets/bgblack.png");
 #[component]
 pub fn Dovemangiare() -> Element {
-    let food_res: Resource<std::result::Result<Vec<Foods>, ServerFnError>> = use_resource(move || get_food_db());
+    //let food_res: Resource<std::result::Result<Vec<Foods>, ServerFnError>> = use_resource(move || get_foods());
+    let food_res = use_resource(move || get_foods());
 rsx! {
     match &*food_res.read_unchecked() {
         Some(Ok(lista)) => rsx! {

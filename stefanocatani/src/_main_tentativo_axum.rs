@@ -59,9 +59,9 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: SLIDER_CSS }
         document::Script { src: JQUERY_JS }
         document::Link { rel: "icon", href: FAVICON }
-        document::Link { rel: "stylesheet", href: MAIN_CSS } 
+        document::Link { rel: "stylesheet", href: MAIN_CSS }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
-          
+
         Router::<Route> {}
     }
 }
@@ -69,15 +69,16 @@ fn App() -> Element {
 #[component]
 pub fn Hero() -> Element {
     rsx! {
-        div {
-            id: "hero",
+        div { id: "hero",
             img { src: HEADER_SVG, id: "header" }
             div { id: "links",
                 a { href: "https://dioxuslabs.com/learn/0.7/", "📚 Learn Dioxus" }
                 a { href: "https://dioxuslabs.com/awesome", "🚀 Awesome Dioxus" }
                 a { href: "https://github.com/dioxus-community/", "📡 Community Libraries" }
                 a { href: "https://github.com/DioxusLabs/sdk", "⚙️ Dioxus Development Kit" }
-                a { href: "https://marketplace.visualstudio.com/items?itemName=DioxusLabs.dioxus", "💫 VSCode Extension" }
+                a { href: "https://marketplace.visualstudio.com/items?itemName=DioxusLabs.dioxus",
+                    "💫 VSCode Extension"
+                }
                 a { href: "https://discord.gg/XgGxMSkvUM", "👋 Community Discord" }
             }
         }
@@ -97,23 +98,18 @@ fn Home() -> Element {
 #[component]
 pub fn Blog(id: i32) -> Element {
     rsx! {
-        div {
-            id: "blog",
+        div { id: "blog",
 
             // Content
             h1 { "This is blog #{id}!" }
-            p { "In blog #{id}, we show how the Dioxus router works and how URL parameters can be passed as props to our route components." }
+            p {
+                "In blog #{id}, we show how the Dioxus router works and how URL parameters can be passed as props to our route components."
+            }
 
             // Navigation links
-            Link {
-                to: Route::Blog { id: id - 1 },
-                "Previous"
-            }
+            Link { to: Route::Blog { id: id - 1 }, "Previous" }
             span { " <---> " }
-            Link {
-                to: Route::Blog { id: id + 1 },
-                "Next"
-            }
+            Link { to: Route::Blog { id: id + 1 }, "Next" }
         }
     }
 }
@@ -122,20 +118,10 @@ pub fn Blog(id: i32) -> Element {
 #[component]
 fn Navbar() -> Element {
     rsx! {
-        div {
-            id: "navbar",
-            Link {
-                to: Route::Home {},
-                "Home"
-            }
-            Link {
-                to: Route::Blog { id: 1 },
-                "Blog"
-            }
-            Link {
-                to: Route::Casabaldini {  },
-                "Casabaldini"
-            }
+        div { id: "navbar",
+            Link { to: Route::Home {}, "Home" }
+            Link { to: Route::Blog { id: 1 }, "Blog" }
+            Link { to: Route::Casabaldini {}, "Casabaldini" }
         }
 
         Outlet::<Route> {}
@@ -148,12 +134,11 @@ fn Echo() -> Element {
     let mut response = use_signal(|| String::new());
     
     rsx! {
-        div {
-            id: "echo",
+        div { id: "echo",
             h4 { "ServerFn Echo" }
             input {
                 placeholder: "Type here to echo...",
-                oninput:  move |event| async move {
+                oninput: move |event| async move {
                     let data = echo_server(event.value()).await.unwrap();
                     response.set(data);
                 },
@@ -172,27 +157,25 @@ fn Echo() -> Element {
 #[component]
 fn Casabaldini() -> Element {
     //let document = window().unwrap().document().unwrap();
-    let sliders = use_resource(move || get_sliders_db());
+    let sliders = use_resource(move || get_sliders());
     
    rsx! {
-           
-     
-    
-            div { class:"slider-pro", 
-            h1 { "Galleria Dinamica Casabaldini" }
-            
-            p { 
-                if cfg!(target_arch = "wasm32") { 
-                    span { style: "color: green;", "✅ CLIENT ATTIVO" }
-                } else { 
-                    span { style: "color: orange;", "🏠 SERVER RENDERING" }
-                }
-            }
 
-            hr {}
-            ElencoSliders {}
+    div { class: "slider-pro",
+        h1 { "Galleria Dinamica Casabaldini" }
+
+        p {
+            if cfg!(target_arch = "wasm32") {
+                span { style: "color: green;", "✅ CLIENT ATTIVO" }
+            } else {
+                span { style: "color: orange;", "🏠 SERVER RENDERING" }
+            }
         }
+
+        hr {}
+        ElencoSliders {}
     }
+}
 }
 
 /// Echo the user input on the server.
@@ -206,7 +189,7 @@ async fn echo_server(input: String) -> Result<String, ServerFnError> {
 
 
 #[server]
-pub async fn get_sliders_db() -> Result<Vec<Slider>, ServerFnError> {
+pub async fn get_sliders() -> Result<Vec<Slider>, ServerFnError> {
     // Import necessari solo lato server
     #[cfg(not(target_arch = "wasm32"))]
     {
@@ -246,7 +229,7 @@ pub async fn get_sliders_db() -> Result<Vec<Slider>, ServerFnError> {
 }
 #[component]
 fn ElencoSliders() -> Element {
-    let sliders_res = use_resource(move || get_sliders_db());
+    let sliders_res = use_resource(move || get_sliders());
 
     use_effect(move || {
     spawn(async move {
@@ -286,20 +269,41 @@ fn ElencoSliders() -> Element {
                             // Ogni slide deve avere la classe sp-slide
                             div { class: "sp-slide", key: "{s.id}",
                                 // Struttura originale dei tuoi testi
-                                h3 {class:"sp-layer sp-black sp-padding", "data-horizontal": "40","data-vertical": "10%","data-show-transition": "left","data-hide-transition": "left" , "{s.titolo}" }
-                                img { 
-                            class: "sp-image", 
-                        // Il browser chiederà: http://localhost:8080/immagini_dinamiche/cafaggiolo.jpg
-                        // Il server Rust risponderà istantaneamente leggendo il file originale
-                            src: "/immagini_dinamiche/{s.img}", width: "250",
-}
-                                p {class:"sp-layer sp-white sp-padding hide-medium-screen", 
-					            "data-horizontal":"40", "data-vertical":"34%", 
-					            "data-show-transition":"left", "data-width":"650","data-show-delay":"400", "data-hide-transition":"left", "data-hide-delay":"500","{s.testo}"
+                                h3 {
+                                    class: "sp-layer sp-black sp-padding",
+                                    "data-horizontal": "40",
+                                    "data-vertical": "10%",
+                                    "data-show-transition": "left",
+                                    "data-hide-transition": "left",
+                                    "{s.titolo}"
                                 }
-                                p {class:"sp-layer sp-white sp-padding hide-medium-screen", 
-					            "data-horizontal":"40", "data-vertical":"22%", 
-					            "data-show-transition":"left", "data-show-delay":"400", "data-hide-transition":"left", "data-hide-delay":"400","{s.caption}"
+                                img {
+                                    class: "sp-image",
+                                    // Il browser chiederà: http://localhost:8080/immagini_dinamiche/cafaggiolo.jpg
+                                    // Il server Rust risponderà istantaneamente leggendo il file originale
+                                    src: "/immagini_dinamiche/{s.img}",
+                                    width: "250",
+                                }
+                                p {
+                                    class: "sp-layer sp-white sp-padding hide-medium-screen",
+                                    "data-horizontal": "40",
+                                    "data-vertical": "34%",
+                                    "data-show-transition": "left",
+                                    "data-width": "650",
+                                    "data-show-delay": "400",
+                                    "data-hide-transition": "left",
+                                    "data-hide-delay": "500",
+                                    "{s.testo}"
+                                }
+                                p {
+                                    class: "sp-layer sp-white sp-padding hide-medium-screen",
+                                    "data-horizontal": "40",
+                                    "data-vertical": "22%",
+                                    "data-show-transition": "left",
+                                    "data-show-delay": "400",
+                                    "data-hide-transition": "left",
+                                    "data-hide-delay": "400",
+                                    "{s.caption}"
                                 }
                                 h3 { "{s.testo}" }
                             }
@@ -307,7 +311,9 @@ fn ElencoSliders() -> Element {
                     }
                 }
             },
-            _ => rsx! { p { "Caricamento dati dal server..." } }
+            _ => rsx! {
+                p { "Caricamento dati dal server..." }
+            },
         }
     }
 }

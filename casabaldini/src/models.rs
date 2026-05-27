@@ -83,7 +83,20 @@ pub async fn get_menu() -> Result<Vec<MenuItem>, String> {
 }
 
 // -------- SUBMENU --------
+pub async fn get_slide(dir: String) -> Result<Vec<Slider>, String> {
+    //let url = format!("{}/sliders?dir={}", API_SLIDER, dir);
+    let url = format!("{}/sliders?dir={}", API_SLIDER, dir);
+    let res = reqwest::get(API_SLIDER)
+        .await
+        .map_err(|e| e.to_string())?;
+    
+    let text = res.text().await.map_err(|e| e.to_string())?;
 
+    //println!("MENU RAW: {}", text);
+    
+    serde_json::from_str::<Vec<Slider>>(&text)
+        .map_err(|e| e.to_string())
+}
 
 // -------- SLIDER --------
 pub async fn get_sliders(dir: String) -> Result<Vec<Slider>, reqwest::Error> {
@@ -96,19 +109,29 @@ pub async fn get_sliders(dir: String) -> Result<Vec<Slider>, reqwest::Error> {
 }
 
 // -------- IMMAGINI BASE64 --------
-pub async fn get_single_image_b64(
-    name: String,
-    dir: String,
-) -> Result<String, reqwest::Error> {
-    let url = format!(
-        "{}/image?name={}&dir={}",
-        API_BASE, name, dir
-    );
-
-    reqwest::get(url)
+pub async fn get_single_image_b64(name: String, dir: String,) -> Result<String, reqwest::Error> {
+    let url = format!("{}assets/img/?dir={}&name={}", API_SLIDER, dir,name );
+    let path = format!("{}assets/img/{}/{}",API_SLIDER, dir, name);
+    reqwest::get(path)
         .await?
         .text()
         .await
+}
+
+pub async fn get_single_img_64(name: String,dir: String) -> Result<Vec<Slider>, String> {
+    //let url = format!("{}/sliders?dir={}", API_SLIDER, dir);
+    let url = format!("{}/sliders?dir={}", API_SLIDER, dir);
+    let path = format!("assets/img/{}/{}",dir, name);
+    let res = reqwest::get(url)
+        .await
+        .map_err(|e| e.to_string())?;
+    
+    let text = res.text().await.map_err(|e| e.to_string())?;
+
+    //println!("MENU RAW: {}", text);
+    
+    serde_json::from_str::<Vec<Slider>>(&text)
+        .map_err(|e| e.to_string())
 }
 
 // -------- LINKS --------
@@ -119,10 +142,17 @@ pub async fn get_links() -> Result<Vec<Links>, reqwest::Error> {
         .await
 }
 
-// -------- FOODS --------
-pub async fn get_foods() -> Result<Vec<Foods>, reqwest::Error> {
-    reqwest::get(format!("{}/foods", API_FOODS))
-        .await?
-        .json::<Vec<Foods>>()
+
+pub async fn get_food() -> Result<Vec<Foods>, String> {
+    //let url = format!("{}/foods", API_FOODS);
+    let url = format!("{}/foods", API_FOODS);
+    let res = reqwest::get(API_FOODS)
         .await
+        .map_err(|e| e.to_string())?;
+    
+    let text = res.text().await.map_err(|e| e.to_string())?;
+
+    
+    serde_json::from_str::<Vec<Foods>>(&text)
+        .map_err(|e| e.to_string())
 }

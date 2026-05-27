@@ -24,7 +24,7 @@ pub fn Navbar() -> Element {
             }
 
             ul {
-                id: "respMenu",
+                id: "dioxus-menu",
                 class: if is_open() { "dioxus-menu show" } else { "dioxus-menu" },
 
                 match &*menu_res.read_unchecked() {

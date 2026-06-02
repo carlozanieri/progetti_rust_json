@@ -4,8 +4,6 @@ use crate::document::eval;
 use crate::models::get_slide;
 #[component]
 pub fn ElencoSliders(dir: String) -> Element {
-    let d_resource = dir.clone();
-    let d = d_resource.clone();
     let dir = use_signal(|| dir.to_string());
     let sliders_res = use_resource(move || get_slide(dir.cloned()));
 
@@ -33,7 +31,7 @@ pub fn ElencoSliders(dir: String) -> Element {
     rsx! {
         match &*sliders_res.read_unchecked() {
             Some(Ok(list)) => rsx! {
-                // 1. Contenitore di posizionamento (il "recinto")
+
                 div { style: "width: 100%; max-width: 920px; margin: 50px auto; position: relative; clear: both;",
 
                     div { id: "example1", class: "slider-pro", onmounted: inizializza_slider,

@@ -1,12 +1,5 @@
 use dioxus::prelude::*;
-use crate::models::{Menus};
-use dioxus::prelude::*;
-use crate::components::nav_item::NavItem;
-use crate::models::get_menu;
 use crate::models::get_single_image_b64;
-use crate::Route;
-use dioxus::{fullstack::reqwest::Url, prelude::*};
-use serde::{Serialize, Deserialize};
 
 #[component]
 pub fn FastImage(name: String, dir: String) -> Element {

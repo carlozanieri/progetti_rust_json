@@ -1,39 +1,13 @@
 use dioxus::prelude::*;
-use crate::models::get_single_image_b64;
 
 #[component]
 pub fn FastImage(name: String, dir: String) -> Element {
-    let mut img_data = use_signal(|| String::new());
-    let n_resource = name.clone();
-    let d_resource = dir.clone();
-    use_resource(move || {
-        let n = n_resource.clone();
-        let d = d_resource.clone();
-        async move {
-            if let Ok(b64) = get_single_image_b64(n, d).await {
-                img_data.set(b64);
-            }
-        }
-    });
+    let src = format!("https://json.casabaldini.eu/static/img/{}/{}", dir, name);
 
     rsx! {
-        // Se l'immagine c'è, la mostriamo senza classi dello slider
-        if !img_data().is_empty() {
-            if dir == "links" || dir == "ristoranti" {
-                img {
-                    key: "{name}",
-                    src: "{img_data}",
-                    // Usiamo stili brutali per essere sicuri che esistano
-                    style: "width: 90px; height: 56px; display: block !important; visibility: visible !important; opacity: 1 !important;",
-                }
-            } else {
-                img {
-                    key: "{name}",
-                    src: "{img_data}",
-                    // Usiamo stili brutali per essere sicuri che esistano
-                    style: "width: 100%; height: 100%; display: block !important; visibility: visible !important; opacity: 1 !important;",
-                }
-            }
+        img {
+            src: "{src}",
+            style: "width: 100%; height: 100%; display: block; object-fit: cover;",
         }
     }
 }

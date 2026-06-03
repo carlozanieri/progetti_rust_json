@@ -23,5 +23,5 @@ pub use crate::models::*;
 // Esporta la configurazione
 pub use crate::config::*;
 
-#[cfg(not(target_arch = "wasm32"))]
-pub use sqlx::{PgPool, FromRow}; // Cambiato da SqlitePool a PgPool
+//#[cfg(not(target_arch = "wasm32"))]
+//pub use sqlx::{PgPool, FromRow}; // Cambiato da SqlitePool a PgPool

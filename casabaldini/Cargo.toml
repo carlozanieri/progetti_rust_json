@@ -7,17 +7,15 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-base64 = "0.22.1"
 dioxus = { version = "0.7.9", features = ["router", "fullstack"] }
+serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0"
-reqwest = { version = "0.13.3", features = ["json"] }
-serde = "1.0.228"
+reqwest = { version = "0.13.3", features = ["json", "rustls"] }
 web-sys = "0.3.98"
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+
+[target.'cfg(target_os = "linux")'.dependencies]
 axum = "=0.8.9"
 sqlx = { version = "0.8", features = ["runtime-tokio", "tls-rustls", "postgres", "macros"] }
-#sqlx = { version = "0.8", features = ["sqlite", "runtime-tokio", "macros"] }
-#sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite"] }
 tokio = { version = "1", features = ["full"] }
 tower-http = { version = "0.6.10", features = ["fs"] }
 [features]

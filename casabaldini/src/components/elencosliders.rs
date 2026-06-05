@@ -78,9 +78,18 @@ pub fn ElencoSliders(dir: String) -> Element {
                     }
                 }
             },
+            Some(Err(e)) => rsx! {
+                div { style: "color: red; padding: 20px; font-size: 20px; background: white;", "ERRORE: {e}" }
+            },
+            None => rsx! {
+                div { style: "color: orange; padding: 20px; font-size: 20px; background: white;",
+                    "Caricamento in corso..."
+                }
+            },
             _ => rsx! {
                 img { src: CLESSIDRA, id: "header" }
             },
+
         } // Chiusura match
     } // Chiusura rsx!
 } 

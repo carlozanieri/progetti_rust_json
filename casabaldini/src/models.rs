@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-
+use reqwest;
 const API_BASE: &str = "https://json.casabaldini.eu/api/v1";
 const API_MENU: &str = "https://json.casabaldini.eu/api/v1/menu";
 const API_SLIDER: &str = "https://json.casabaldini.eu/api/v1/slider";

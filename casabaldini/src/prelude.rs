@@ -1,4 +1,5 @@
-pub use dioxus::{fullstack::reqwest::Url, prelude::*};
+//pub use dioxus::{fullstack::reqwest::Url, prelude::*};
+pub use dioxus::prelude::*;
 pub use serde::{Serialize, Deserialize};
 pub use dioxus::prelude::asset;
 

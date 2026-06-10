@@ -7,7 +7,7 @@ pub fn FastImage(name: String, dir: String) -> Element {
     rsx! {
         img {
             src: "{src}",
-            style: "width: 100%; height: 100%; display: block; object-fit: cover;",
+            style: "width: 30%; height: 30%; display: block; object-fit: cover;",
         }
     }
 }

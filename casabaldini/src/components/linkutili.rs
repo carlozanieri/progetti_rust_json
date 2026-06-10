@@ -5,7 +5,7 @@ use crate::models::get_links;
 #[component]
 pub fn Linkutili() -> Element {
     let link_res = use_resource(move || get_links());
-    
+    let dir ="links";
 rsx! {
     match &*link_res.read_unchecked() {
         Some(Ok(lista)) => rsx! {
@@ -20,10 +20,16 @@ rsx! {
                             style: "color:#ffffff; font-size: 1.5em; font-weight: bold; display: inline-flex; align-items: center; margin-right: 50px;",
 
                             // Il tuo componente immagine
-                            FastImage { name: l.img.clone(), dir: "links" }
+                            FastImage { name: l.img.clone(), dir }
 
                             // Il testo allineato
-                            span { style: "margin-left: 15px;", "{l.titolo}" }
+                            //span { style: "margin-left: 15px;",
+                            //FastImage { name: l.img.clone(), dir }
+                            //}
+                            span { style: "margin-left: 15px;",
+                                FastImage { name: l.img.clone(), dir }
+                                "{l.titolo}"
+                            }
 
                         }
                     }

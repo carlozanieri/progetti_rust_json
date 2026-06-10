@@ -66,11 +66,7 @@ pub fn ElencoSliders(dir: String) -> Element {
                                         "data-horizontal": "40",
                                         "data-vertical": "34%",
                                         "data-show-transition": "left",
-                                        "{s.testo}"
-                                        "--"
-                                        "{s.img.clone()}"
-                                        "--"
-                                        "{dir.clone()}"
+
                                     }
                                 }
                             }

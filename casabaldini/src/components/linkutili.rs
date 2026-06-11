@@ -19,16 +19,11 @@ rsx! {
                             href: "{l.link}",
                             style: "color:#ffffff; font-size: 1.5em; font-weight: bold; display: inline-flex; align-items: center; margin-right: 50px;",
 
-                            // Il tuo componente immagine
-                            FastImage { name: l.img.clone(), dir }
+                            span { style: "margin-left: 15px; ",
 
-                            // Il testo allineato
-                            //span { style: "margin-left: 15px;",
-                            //FastImage { name: l.img.clone(), dir }
-                            //}
-                            span { style: "margin-left: 15px;",
                                 FastImage { name: l.img.clone(), dir }
-                                "{l.titolo}"
+                                span { style: "display: inline-flex;", "{l.titolo}" }
+
                             }
 
                         }

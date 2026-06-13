@@ -117,7 +117,7 @@ body {
 
 .dioxus-menu {
     position: relative;
-    
+    display: inline-flex;
     left: 0;
     top: 100%;
     min-width: 200px;
@@ -131,7 +131,7 @@ body {
 }
 
 .sub-menu.visible {
-    display: block;
+    display: inline-flex;
 }
 /* Il container del sottomenu */
 .sub-menu-container {

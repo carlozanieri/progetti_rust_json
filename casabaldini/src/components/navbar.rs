@@ -33,11 +33,13 @@ pub fn Navbar() -> Element {
                         rsx! {
 
                             for item in menu_items {
+                                p { "  ° " }
                                 NavItem {
                                     key: "{item.parent.id}",
                                     m: item.parent.clone(),
                                     subitems: item.children.clone(),
                                 }
+
                             }
 
                         }

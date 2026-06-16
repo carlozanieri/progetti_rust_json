@@ -19,10 +19,10 @@ rsx! {
                             href: "{l.link}",
                             style: "color:#ffffff; font-size: 1.5em; font-weight: bold; display: inline-flex; align-items: center; margin-right: 50px;",
 
-                            span { style: "margin-left: 15px; ",
+                            span { style: "color:#ffffff; font-size: 1.5em; font-weight: bold;  align-items: center; margin-right: 50px;",
 
                                 FastImage { name: l.img.clone(), dir }
-                                span { style: "display: inline-flex;", "{l.titolo}" }
+                                span { style: "", "{l.titolo}" }
 
                             }
 

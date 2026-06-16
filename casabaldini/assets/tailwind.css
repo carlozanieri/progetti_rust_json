@@ -255,9 +255,6 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .text-right {
-    text-align: right;
-  }
   .lowercase {
     text-transform: lowercase;
   }

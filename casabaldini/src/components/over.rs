@@ -30,7 +30,7 @@ pub fn MenuHover() -> Element {
                     top: "100%",
                     left: "0",
                     min_width: "800%",
-                    background_color: "#680e01",
+                    background_color: "#290300",
                     box_shadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
                     padding: "12px",
                     z_index: "1",
@@ -50,7 +50,7 @@ pub fn MenuHover() -> Element {
 
                                             subitems: item.children.clone(),
                                         }
-
+                                        "\u{00A0}"
                                     }
 
                                 }

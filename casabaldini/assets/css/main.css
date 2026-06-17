@@ -1375,3 +1375,19 @@ a.sp-video:after {
 .menu-item:hover .dropdown-menu {
     display: block;
 }
+.nav-item .submenu {
+    display: none;
+    position: absolute;
+}
+.nav-item:hover > .submenu {
+    display: block;
+}
+
+.nav-item .submenu {
+    display: none;
+    position: absolute;
+}
+
+.nav-item:hover .submenu {
+    display: block;
+}

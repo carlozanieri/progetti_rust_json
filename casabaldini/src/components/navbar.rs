@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use crate::models::{Menus, MenuItem};
 use crate::components::nav_item::NavItem;
 use crate::components::over::MenuHover;
+use crate::components::over::SubMenuHover;
 use crate::models::get_menu;
 use crate::Route;
 
@@ -38,7 +39,8 @@ pub fn Navbar() -> Element {
                     Some(Ok(menu_items)) => {
 
                         rsx! {
-                            MenuHover {}
+                            //MenuHover {}
+                            SubMenuHover {}
                         }
                     }
                     Some(Err(e)) => rsx! {

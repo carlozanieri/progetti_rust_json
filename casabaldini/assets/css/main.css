@@ -1373,6 +1373,7 @@ a.sp-video:after {
 
 /* Mostra il menu al passaggio del mouse sul genitore */
 .menu-item:hover .dropdown-menu {
+	background-color: #5f1601;
     display: block;
 }
 .nav-item .submenu {
@@ -1380,6 +1381,7 @@ a.sp-video:after {
     position: absolute;
 }
 .nav-item:hover > .submenu {
+	background-color: #5f1601;
     display: block;
 }
 
@@ -1389,5 +1391,6 @@ a.sp-video:after {
 }
 
 .nav-item:hover .submenu {
+	
     display: block;
 }

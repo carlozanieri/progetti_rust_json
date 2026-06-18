@@ -2,6 +2,7 @@ use crate::prelude::*;
 use crate::components::fastimage::FastImage;
 use crate::document::eval;
 use crate::models::get_slide;
+
 #[component]
 pub fn ElencoSliders(dir: String) -> Element {
     let dir = use_signal(|| dir.to_string());
@@ -19,7 +20,7 @@ pub fn ElencoSliders(dir: String) -> Element {
                         buttons: true,
                         autoplay: true,
                         autoHeight: false,
-                        forceSize: 'none', // Fondamentale per non andare a tutto schermo
+                        forceSize: 'none',
                         imageScaleMode: 'cover',
                         centerImage: true
                     });
@@ -28,19 +29,21 @@ pub fn ElencoSliders(dir: String) -> Element {
         });
     };
 
+    // NUOVO: trigger di "risveglio" per Android - forza un re-render iniziale
+    let mut sliders: Signal<Option<Result<Vec<Slider>, String>>> = use_signal(|| None);
+    let dir_clone = dir.clone();
+
+
     rsx! {
+
         match &*sliders_res.read_unchecked() {
             Some(Ok(list)) => rsx! {
-
                 div { style: "width: 100%; max-width: 920px; margin: 50px auto; position: relative; clear: both;",
-
                     div { id: "example1", class: "slider-pro", onmounted: inizializza_slider,
-
                         div { class: "sp-slides",
                             for s in list {
                                 div { class: "sp-slide", key: "{s.id.clone()}",
                                     FastImage { name: s.img.clone(), dir: {dir.clone()} }
-
                                     h3 {
                                         class: "sp-layer sp-black sp-padding",
                                         "data-horizontal": "40",
@@ -48,9 +51,7 @@ pub fn ElencoSliders(dir: String) -> Element {
                                         "data-show-transition": "left",
                                         "data-hide-transition": "left",
                                         "{s.titolo}"
-
                                     }
-
                                     p {
                                         class: "sp-layer sp-white sp-padding hide-medium-screen",
                                         "data-horizontal": "40",
@@ -59,14 +60,12 @@ pub fn ElencoSliders(dir: String) -> Element {
                                         "data-hide-transition": "left",
                                         "{s.caption}"
                                     }
-
                                     p {
                                         style: "background-color:#330101;color:#ffffff;",
                                         class: "sp-layer sp-white sp-padding hide-small-screen",
                                         "data-horizontal": "40",
                                         "data-vertical": "34%",
                                         "data-show-transition": "left",
-
                                     }
                                 }
                             }
@@ -82,10 +81,6 @@ pub fn ElencoSliders(dir: String) -> Element {
                     "Caricamento in corso..."
                 }
             },
-            _ => rsx! {
-                img { src: CLESSIDRA, id: "header" }
-            },
-
-        } // Chiusura match
-    } // Chiusura rsx!
-} 
+        }
+    }
+    }

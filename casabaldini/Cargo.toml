@@ -7,14 +7,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.7.9", features = ["router", "fullstack"] }
-serde = { version = "1.0.228", features = ["derive"] }
+dioxus = { version = "0.7.9", features = ["router"] }
+serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-#reqwest = { version = "0.13.3", features = ["json", "rustls"] }
-reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
-web-sys = "0.3.98"
 
-[target.'cfg(target_os = "linux")'.dependencies]
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+dioxus = { version = "0.7.9", features = ["router", "web"] }
+reqwest = { version = "0.12", features = ["json"], default-features = false }
+
+[target.'cfg(target_os = "android")'.dependencies]
+dioxus = { version = "0.7.9", features = ["router", "mobile"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
 axum = "=0.8.9"
 sqlx = { version = "0.8", features = ["runtime-tokio", "tls-rustls", "postgres", "macros"] }
 tokio = { version = "1", features = ["full"] }

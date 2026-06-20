@@ -1,6 +1,6 @@
-use dioxus::{fullstack::reqwest::Url, prelude::*};
+//use dioxus::{fullstack::reqwest::Url, prelude::*};
 use serde::{Serialize, Deserialize};
-use dioxus::prelude::asset;
+use dioxus::prelude::*;
 pub const FAVICON: Asset = asset!("/assets/favicon.ico");
 pub const MAIN_CSS: Asset = asset!("/assets/css/main.css");
 pub const SLIDERMIN_CSS: Asset = asset!("/assets/home/dist/css/slider-pro.min.css");

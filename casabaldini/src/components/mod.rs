@@ -5,7 +5,7 @@ pub mod casabaldini;
 pub mod elencosliders;
 pub mod fastimage;
 //pub mod blog;
-pub mod echo;
+//pub mod _echo;
 pub mod hero;
 pub mod home;
 pub mod prenotazioni;

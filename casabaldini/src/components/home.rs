@@ -3,7 +3,7 @@ use crate::components::casabaldini::Casabaldini;
 pub use crate::prelude::*;
 pub use crate::components::hero::Hero;
 pub const BACK_IMG: Asset = asset!("/assets/bgblack.png");
-use crate::components::echo::Echo;
+//use crate::components::_echo::Echo;
 use crate::components::linkutili::Linkutili;
 #[component]
 pub fn Home() -> Element {

@@ -40,7 +40,8 @@ fn App() -> Element {
 
     
     rsx! {
-        document::Script { src: "https://code.jquery.com/jquery-3.6.2.min.js" }
+        document::Script { src: asset!("/assets/home/js/jquery.min.js") }
+        //document::Script { src: "https://code.jquery.com/jquery-3.6.2.min.js" }
         document::Link { rel: "stylesheet", href: crate::config::EXAMPLE_CSS }
         document::Link { rel: "stylesheet", href: crate::config::MENU_CSS }
         document::Link { rel: "stylesheet", href: crate::config::SLIDERMIN_CSS }

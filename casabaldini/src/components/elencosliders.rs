@@ -9,10 +9,17 @@ pub fn ElencoSliders(dir: String) -> Element {
     let sliders_res = use_resource(move || get_slide(dir.cloned()));
 
     let inizializza_slider = move |_| {
-        spawn(async move {
-            let _ = eval(r#"
+    spawn(async move {
+        let _ = eval(r#"
+            function tryInitSlider(attempts) {
                 var $slider = $('#example1');
-                if ($slider.length > 0 && typeof $.fn.sliderPro !== 'undefined') {
+                if (typeof jQuery === 'undefined' || typeof $.fn.sliderPro === 'undefined') {
+                    if (attempts > 0) {
+                        setTimeout(() => tryInitSlider(attempts - 1), 200);
+                    }
+                    return;
+                }
+                if ($slider.length > 0 && !$slider.hasClass('sp-slider')) {
                     $slider.sliderPro({
                         width: 960,
                         height: 500,
@@ -25,9 +32,11 @@ pub fn ElencoSliders(dir: String) -> Element {
                         centerImage: true
                     });
                 }
-            "#);
-        });
-    };
+            }
+            tryInitSlider(25); // riprova fino a 25 volte, ogni 200ms = max 5 secondi di attesa
+        "#);
+    });
+};
 
     // NUOVO: trigger di "risveglio" per Android - forza un re-render iniziale
     let mut sliders: Signal<Option<Result<Vec<Slider>, String>>> = use_signal(|| None);
